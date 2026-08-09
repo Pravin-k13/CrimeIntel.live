@@ -5,7 +5,7 @@ pandas
 numpy
 faiss-cpu
 sentence-transformers
-torch
+torch==2.3.1
 transformers
 sentencepiece
 openai
