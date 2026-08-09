@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login/Signup Form</title>
+  <style>
+    /* :root {
+      --basic-gradient: linear-gradient(45deg, #187E5F 0%, #0B5844 30%, #043a2a 55%, #02341d 75%, #187E5F 100%);
+      --primary-gradient: linear-gradient(135deg, #187E5F 0%, #0B5844 100%);
+      --secondary-gradient: linear-gradient(135deg, #187E5F 0%, #00381F 100%);
+      --accent-gradient: linear-gradient(135deg, #0B5844 0%, #00381F 100%);
+      --dark-gradient: linear-gradient(135deg, #00381F 0%, #0B5844 100%);
+      --text-primary: #1F2937;
+      --text-secondary: #6B7280;
+      --text-light: #F9FAFB;
+      --bg-primary: #ffffff;
+      --bg-secondary: #F0FDF4;
+      --border-color: rgba(24, 126, 95, 0.2);
+      --card-tone-color: linear-gradient(135deg, #187E5F 0%, #0B5844 100%);
+      --shadow-light: 0 4px 6px rgba(24, 126, 95, 0.1);
+      --shadow-medium: 0 10px 25px rgba(24, 126, 95, 0.15);
+      --shadow-heavy: 0 20px 60px rgba(24, 126, 95, 0.2);
+      --border-radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    } */
+
+:root {
+    /* Gradients */
+    --basic-gradient: linear-gradient(
+        45deg,
+        #000000 0%,
+        #0a0a0a 25%,
+        #111111 50%,
+        #0a0a0a 75%,
+        #000000 100%
+    );
+
+    --primary-gradient: linear-gradient(
+        135deg,
+        #000000 0%,
+        #121212 100%
+    );
+
+    --secondary-gradient: linear-gradient(
+        135deg,
+        #000000 0%,
+        #1a1a1a 100%
+    );
+
+    --accent-gradient: linear-gradient(
+        135deg,
+        #1f1f1f 0%,
+        #000000 100%
+    );
+
+    --dark-gradient: linear-gradient(
+        135deg,
+        #000000 0%,
+        #0f0f0f 100%
+    );
+
+    /* Text */
+    --text-primary: #ffffff;
+    --text-secondary: #b3b3b3;
+    --text-light: #ffffff;
+
+    /* Backgrounds */
+    --bg-primary: #000000;
+    --bg-secondary: #111111;
+
+    /* Borders & UI */
+    --border-color: #222222;
+    --card-tone-color: linear-gradient(
+        135deg,
+        #0d0d0d 0%,
+        #1a1a1a 100%
+    );
+
+    /* Shadows */
+    --shadow-light: 0 4px 6px rgba(0, 0, 0, 0.4);
+    --shadow-medium: 0 10px 25px rgba(0, 0, 0, 0.6);
+    --shadow-heavy: 0 20px 60px rgba(0, 0, 0, 0.8);
+
+    /* Misc */
+    --border-radius: 12px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+      text-decoration: none;
+      list-style: none;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: var(--border-color);
+    }
+
+    .container {
+      position: relative;
+      width: 850px;
+      height: 550px;
+      background: var(--bg-primary);
+      margin: 20px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-heavy);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .container h1 {
+      font-size: 26px;
+      margin: -10px 0;
+      line-height: 50px;
+      color: var(--text-secondary);
+    }
+
+    .container p {
+      font-size: 14.5px;
+      margin: 15px 0;
+      color: var(--text-secondary);
+    }
+
+    form {
+      width: 100%;
+    }
+
+    .form-box {
+      position: absolute;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background: var(--bg-primary);
+      display: flex;
+      align-items: center;
+      color: var(--text-primary);
+      text-align: center;
+      padding: 40px;
+      z-index: 1;
+      transition: 0.6s ease-in-out 1.2s, visibility 0s 1s;
+    }
+
+    .container.active .form-box {
+      right: 50%;
+    }
+
+    .form-box.register {
+      visibility: hidden;
+    }
+
+    .container.active .form-box.register {
+      visibility: visible;
+    }
+
+    .input-box {
+      position: relative;
+      margin: 30px 0;
+    }
+
+    .input-box input {
+      width: 100%;
+      padding: 13px 50px 13px 20px;
+      background: var(--bg-secondary);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--border-color);
+      outline: none;
+      font-size: 13px;
+      color: var(--text-primary);
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .input-box input::placeholder {
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+
+    .input-box i {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: var(--text-secondary);
+    }
+
+    .forgot-link {
+      margin: -15px 0 15px;
+    }
+
+    .forgot-link a {
+      font-size: 14.5px;
+      color: var(--text-secondary);
+    }
+
+    .btn {
+      width: 100%;
+      height: 48px;
+      background: var(--primary-gradient);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-light);
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--text-light);
+      font-weight: 400;
+      transition: var(--transition);
+    }
+
+    .btn:hover {
+      box-shadow: var(--shadow-medium);
+      transform: translateY(-1px);
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+    }
+
+    .social-icons a {
+      display: inline-flex;
+      padding: 10px;
+      border: 2px solid var(--border-color);
+      border-radius: var(--border-radius);
+      font-size: 24px;
+      color: var(--text-primary);
+      margin: 0 8px;
+      transition: var(--transition);
+    }
+
+    .social-icons a:hover {
+      background: var(--bg-secondary);
+      transform: scale(1.1);
+    }
+
+    .toggle-box {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    .toggle-box::before {
+      content: '';
+      position: absolute;
+      left: -250%;
+      width: 300%;
+      height: 100%;
+      background: var(--primary-gradient);
+      border-radius: 150px;
+      z-index: 2;
+      transition: 1.8s ease-in-out;
+    }
+
+    .container.active .toggle-box::before {
+      left: 50%;
+    }
+
+    .toggle-panel {
+      position: absolute;
+      width: 50%;
+      height: 100%;
+      color: var(--text-light);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+      transition: 0.6s ease-in-out;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .toggle-panel.toggle-left {
+      left: 0;
+      transition-delay: 1.2s;
+    }
+
+    .container.active .toggle-panel.toggle-left {
+      left: -50%;
+      transition-delay: 0.6s;
+    }
+
+    .toggle-panel.toggle-right {
+      right: -50%;
+      transition-delay: 0.6s;
+    }
+
+    .container.active .toggle-panel.toggle-right {
+      right: 0;
+      transition-delay: 1.2s;
+    }
+
+    .toggle-panel p {
+      margin-bottom: 20px;
+    }
+
+    .toggle-panel .btn {
+      width: 160px;
+      height: 46px;
+      background: transparent;
+      border: 2px solid #fff;
+      box-shadow: none;
+      color: var(--text-light);
+    }
+
+    @media screen and (max-width: 650px) {
+      .container {
+        height: calc(100vh - 40px);
+      }
+
+      .form-box {
+        bottom: 0;
+        width: 100%;
+        height: 70%;
+      }
+
+      .container.active .form-box {
+        right: 0;
+        bottom: 30%;
+      }
+
+      .toggle-box::before {
+        left: 0;
+        top: -270%;
+        width: 100%;
+        height: 300%;
+        border-radius: 20vw;
+      }
+
+      .container.active .toggle-box::before {
+        left: 0;
+        top: 70%;
+      }
+
+      .container.active .toggle-panel.toggle-left {
+        left: 0;
+        top: -30%;
+      }
+
+      .toggle-panel {
+        width: 100%;
+        height: 30%;
+      }
+
+      .toggle-panel.toggle-left {
+        top: 0;
+      }
+
+      .toggle-panel.toggle-right {
+        right: 0;
+        bottom: -30%;
+      }
+
+      .container.active .toggle-panel.toggle-right {
+        bottom: 0;
+      }
+    }
+
+    @media screen and (max-width: 400px) {
+      .form-box {
+        padding: 20px;
+      }
+
+      .toggle-panel h1 {
+        font-size: 30px;
+      }
+    }
+
+    
+    .toggle-panel p{
+        color: #b4b1b1;
+    }
+
+        /* OTP box styling */
+    .otp-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.otp-input {
+  width: 50px;
+  height: 50px;
+  font-size: 18px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: var(--transition);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.otp-input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+
+    img{
+      width : 100px;
+      height: 70px;
+    }
+
+
+    form h1{
+      font-size: 13px;
+    }
+
+
+
+
+
+
+  </style>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+  <div class="container">
+    <div class="form-box login">
+      <form>
+        <h1>Login</h1>
+        <div class="input-box">
+          <input type="mail" id="username" placeholder="Email" required>
+          <i class='bx bxs-user'></i>
+        </div>
+        <div class="input-box">
+          <input type="password" id="userpassword" placeholder="Password" required>
+          <i class='bx bxs-lock-alt'></i>
+        </div>
+        <button type="button" id="login" class="btn">Get Started</button>
+      </form>
+    </div>
+
+    <div class="form-box register">
+      <form>
+        <h1>OTP validation</h1>
+          <div class="otp-container" id="otp-container">
+            <input type="text" placeholder="_" maxlength="1" class="otp-input" />
+            <input type="text" placeholder="_" maxlength="1" class="otp-input" />
+            <input type="text" placeholder="_" maxlength="1" class="otp-input" />
+            <input type="text" placeholder="_" maxlength="1" class="otp-input" />
+            <input type="text" placeholder="_" maxlength="1" class="otp-input" />
+            <input type="text" placeholder="_" maxlength="1" class="otp-input" />
+          </div>
+
+        <button type="button" id="generate_otp_btn" class="btn">Send OTP</button>
+        <button type="button" id="update_password_btn" class="btn" style="display: none;">Validate OTP</button>
+      </form>
+    </div>
+
+    <div class="toggle-box">  
+      <div class="toggle-panel toggle-left">
+        <!-- <img src="https://firebasestorage.googleapis.com/v0/b/digitalsignature-af550.appspot.com/o/files%2Fconsultancy_logo.PNG?alt=media&token=1984e175-c244-4aeb-a9ce-cde59d7f30e8"
+          alt="Migrate Hub Logo"> -->
+          <div style="
+          background:#1f1f1f;
+          padding:6px 14px;
+          border-radius:20px;
+          font-size:12px;
+          margin-bottom:20px;
+          border:1px solid #333;
+          ">
+              FINAL YEAR PROJECT
+          </div>
+          <h1 style="font-size:38px; font-weight:700; letter-spacing:1px;">
+            CrimeINTEL
+        </h1>
+        
+        <h2 style="font-size:16px; color:#b4b1b1; margin-top:10px;">
+            AI-Powered Crime Investigation & Intelligence System
+        </h2>
+        
+        <p style="margin-top:20px;">
+            Smart forensic intelligence using AI, NLP and semantic search
+        </p>
+      </div>
+
+      <div class="toggle-panel toggle-right">
+        <h1>Welcome to CrimeIntel</h1>
+        <p>AI powered Intelligence for forensic</p>
+        <button class="btn login-btn">Login</button>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script type="module">
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getDatabase, set, get, update, remove, ref, child } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyASa8YveUUBXichdQ6c5tlFSYa8D_260vE",
+          authDomain: "crimeinteldb.firebaseapp.com",
+          databaseURL: "https://crimeinteldb-default-rtdb.firebaseio.com",
+          projectId: "crimeinteldb",
+          storageBucket: "crimeinteldb.firebasestorage.app",
+          messagingSenderId: "402302336479",
+          appId: "1:402302336479:web:48140fe361e6a0c143186a",
+          measurementId: "G-2KK0GBN1GK"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+
+        emailjs.init("VFqxg3KU_TownwBWF");
+
+        let generatedOTP = "";
+
+        const container = document.querySelector('.container');
+
+        const loginBtn = document.querySelector('.login-btn');
+
+
+
+        loginBtn.addEventListener('click', () => {
+            container.classList.remove('active');
+        });
+
+        const otpInputs = document.querySelectorAll('.otp-input');
+
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                const value = e.target.value;
+
+                if (!/^\d$/.test(value)) {
+                    e.target.value = '';
+                    return;
+                }
+
+                if (value && index < otpInputs.length - 1) {
+                    otpInputs[index + 1].focus();
+                }
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !input.value && index > 0) {
+                    otpInputs[index - 1].focus();
+                }
+            });
+
+            input.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const pastedData = e.clipboardData.getData('text').replace(/\D/g, '');
+
+                for (let i = 0; i < otpInputs.length; i++) {
+                    otpInputs[i].value = pastedData[i] || '';
+                }
+
+                const lastFilled = pastedData.length >= otpInputs.length
+                    ? otpInputs.length - 1
+                    : pastedData.length;
+                otpInputs[lastFilled]?.focus();
+            });
+        });
+
+        function getOTP() {
+            return Array.from(otpInputs)
+                .map(input => input.value)
+                .join('');
+        }
+
+        let update_password_btn = document.getElementById("update_password_btn")
+        let generate_otp_btn = document.getElementById("generate_otp_btn")
+
+        localStorage.setItem('logged', false)
+
+        let username = document.getElementById("username")
+        let password = document.getElementById("userpassword")
+        let loginbtn = document.getElementById("login")
+
+        function getPassword(userEmail, userPassword) {
+            const dbref = ref(db)
+
+            get(child(dbref, `User/${userEmail}`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    let db_pass = snapshot.val().Password;
+                    console.log(`The index value is ${db_pass}`)
+                    if (db_pass == userPassword) {
+                        localStorage.setItem('logged', true)
+                        console.log("Password authentication is success")
+                        container.classList.add('active');
+                    } else {
+                        alert('Wrong Password, Invalid Credentials')
+                    }
+                } else {
+                    alert("Contact Admin");
+                }
+            }).catch((error) => {
+                alert("No Connection while fetching user data");
+            });
+        }
+
+
+        loginbtn.addEventListener("click", () => {
+            let userID = username.value;
+            let userEmail = userID.includes("@")
+                ? userID.split("@")[0]
+                : userID;
+            let userPass = password.value;
+            console.log(`The username is ${userID} and the password is ${userPass}`)
+            localStorage.setItem("user-email", userID);
+            getPassword(userEmail, userPass)
+        })
+
+        update_password_btn.addEventListener('click', () => {
+            let otpValue = getOTP();
+
+            if (otpValue == generatedOTP) {
+                alert('OTP verified')
+                location.replace('/internal')
+            } else {
+                alert('Invalid OTP')
+            }
+        });
+
+
+        generate_otp_btn.addEventListener('click', () => {
+
+            generatedOTP = Math.floor(100000 + Math.random() * 900000); // 6-digit OTP
+            let useremail = localStorage.getItem("user-email");
+            // Send OTP using EmailJS
+            emailjs.send("service_cly9nil", "template_7ilkp4y", {
+                email: useremail,
+                passcode: generatedOTP
+            })
+                .then(function (response) {
+                    alert(`An OTP has sent to your official mail ID`)
+                }, function (error) {
+                    alert(`Failed to send OTP`)
+                    console.error("EmailJS error:", error);
+                });
+
+            update_password_btn.style.display = `inline`;
+            generate_otp_btn.style.display = `none`
+        })
+
+
+        // //         // Disable right-click context menu
+        // document.addEventListener('contextmenu', function(e) {
+        //     e.preventDefault();
+        // });
+
+        // // Disable specific key combinations
+        // document.addEventListener('keydown', function(e) {
+        //     // Prevent F12, Ctrl+Shift+I/J/C/U, Ctrl+S, Ctrl+U, Ctrl+P, Ctrl+Shift+C, Ctrl+Shift+J
+        //     if (
+        //         e.keyCode === 123 || // F12
+        //         (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) || // Ctrl+Shift+I/J/C
+        //         (e.ctrlKey && (e.keyCode === 83 || e.keyCode === 85 || e.keyCode === 80)) // Ctrl+S/U/P
+        //     ) {
+        //         e.preventDefault();
+        //     }
+        // });
+
+        // // Disable page print
+        // window.addEventListener("beforeprint", function(e) {
+        //     alert("Printing is disabled on this webpage.");
+        //     e.preventDefault();
+        // });
+
+        // // Try to block dragging (saving images etc.)
+        // document.addEventListener('dragstart', function(e) {
+        //     e.preventDefault();
+        // });
+
+        // // Additional — block copy
+        // document.addEventListener('copy', function(e) {
+        //     e.preventDefault();
+        //     alert('Copying is disabled on this page.');
+        // });
+    </script>
+</body>
+</html>
