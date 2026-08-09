@@ -8,6 +8,5 @@ sentence-transformers
 torch
 transformers
 sentencepiece
-faster-whisper
 openai
 gunicorn

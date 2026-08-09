@@ -2,7 +2,7 @@ from flask import Flask, render_template, jsonify, request
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
 import general as gen
-import audio_to_text as audio_convtr
+# import audio_to_text as audio_convtr
 import model as bert
 import subprocess
 import sys
@@ -138,14 +138,12 @@ def upload_audio():
 
         file.save(save_path)
 
-        cvt_text = audio_convtr.audio_text_cvtr(f"static/Audio/{filename}")
+        # Load Whisper only when audio conversion is actually requested
+        import audio_to_text as audio_convtr
 
-        return jsonify({
-            "message": "File uploaded successfully",
-            "filename": filename,
-            "filepath": f"static/Audio/{filename}",
-            "converted_text" : cvt_text
-        }), 200
+        cvt_text = audio_convtr.audio_text_cvtr(
+            f"static/Audio/{filename}"
+        )
     else:
         return jsonify({"error": "Invalid audio format"}), 400
     
